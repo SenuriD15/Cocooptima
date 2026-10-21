@@ -1,0 +1,116 @@
+{
+  "validation_leaderboard": [
+    {
+      "model": "Weighted ensemble (Ridge regression 0.61, Support vector regression 0.18, Hist gradient boosting 0.21)",
+      "MAE": 0.6508,
+      "RMSE": 0.8303,
+      "R2": 0.8001,
+      "fit_s": NaN
+    },
+    {
+      "model": "Ridge regression",
+      "MAE": 0.6584,
+      "RMSE": 0.8366,
+      "R2": 0.7971,
+      "fit_s": 2.5
+    },
+    {
+      "model": "Support vector regression",
+      "MAE": 0.6634,
+      "RMSE": 0.8426,
+      "R2": 0.7941,
+      "fit_s": 42.5
+    },
+    {
+      "model": "Baseline: multiple linear regression",
+      "MAE": 0.6685,
+      "RMSE": 0.8462,
+      "R2": 0.7924,
+      "fit_s": NaN
+    },
+    {
+      "model": "Hist gradient boosting",
+      "MAE": 0.6866,
+      "RMSE": 0.8894,
+      "R2": 0.7707,
+      "fit_s": 136.1
+    },
+    {
+      "model": "Random forest",
+      "MAE": 0.71,
+      "RMSE": 0.922,
+      "R2": 0.7535,
+      "fit_s": 57.1
+    },
+    {
+      "model": "Extra trees",
+      "MAE": 0.7147,
+      "RMSE": 0.9176,
+      "R2": 0.7559,
+      "fit_s": 49.3
+    },
+    {
+      "model": "Baseline: historical average",
+      "MAE": 1.4481,
+      "RMSE": 1.8588,
+      "R2": -0.0017,
+      "fit_s": NaN
+    },
+    {
+      "model": "Baseline: 30-day moving average",
+      "MAE": 1.5359,
+      "RMSE": 2.0039,
+      "R2": -0.1643,
+      "fit_s": NaN
+    }
+  ],
+  "test": {
+    "selected_model": "Weighted ensemble (Ridge regression 0.61, Support vector regression 0.18, Hist gradient boosting 0.21)",
+    "test_n": 450,
+    "model": {
+      "MAE": 0.6615,
+      "RMSE": 0.8242,
+      "R2": 0.8448
+    },
+    "baseline_historical_average": {
+      "MAE": 1.6743,
+      "RMSE": 2.0968,
+      "R2": -0.0046
+    },
+    "baseline_moving_average": {
+      "MAE": 1.7177,
+      "RMSE": 2.1736,
+      "R2": -0.0796
+    },
+    "baseline_linear_regression": {
+      "MAE": 0.6683,
+      "RMSE": 0.8316,
+      "R2": 0.842
+    },
+    "model_incl_downgraded_batches": {
+      "MAE": 1.1599,
+      "RMSE": 4.8962,
+      "R2": 0.1569
+    },
+    "interval90_coverage": 0.9311111111111111,
+    "yield_level_macro_f1": 0.805903374102234,
+    "yield_level_accuracy": 0.8044444444444444
+  },
+  "top_inputs": {
+    "planned_expeller_passes": 0.58911,
+    "lab_kernel_fat_pct_wb": 0.56055,
+    "days_since_maintenance": 0.31618,
+    "machine_id": 0.27095,
+    "feed_moisture_pct": 0.22981,
+    "lab_kernel_moisture_pct": 0.15232,
+    "immature_nut_pct": 0.09002,
+    "machine_age_years": 0.02578,
+    "planned_feed_rate_kg_h": 0.02315,
+    "retail_nut_price_lkr_lag1m": 0.00447,
+    "avg_dehusked_nut_weight_g": 0.00447,
+    "scheduled_power_cut_h": 0.00437,
+    "rain_today_mm": 0.00142,
+    "nut_storage_days": 0.00124,
+    "germinated_nut_pct": 0.00117
+  }
+}

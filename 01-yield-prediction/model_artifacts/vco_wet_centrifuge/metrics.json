@@ -1,0 +1,116 @@
+{
+  "validation_leaderboard": [
+    {
+      "model": "Weighted ensemble (Ridge regression 0.54, Random forest 0.36, Hist gradient boosting 0.10)",
+      "MAE": 0.4242,
+      "RMSE": 0.5337,
+      "R2": 0.6016,
+      "fit_s": NaN
+    },
+    {
+      "model": "Ridge regression",
+      "MAE": 0.4488,
+      "RMSE": 0.5654,
+      "R2": 0.5527,
+      "fit_s": 1.6
+    },
+    {
+      "model": "Extra trees",
+      "MAE": 0.4615,
+      "RMSE": 0.5784,
+      "R2": 0.532,
+      "fit_s": 13.7
+    },
+    {
+      "model": "Random forest",
+      "MAE": 0.4641,
+      "RMSE": 0.5868,
+      "R2": 0.5183,
+      "fit_s": 16.5
+    },
+    {
+      "model": "Hist gradient boosting",
+      "MAE": 0.4743,
+      "RMSE": 0.5971,
+      "R2": 0.5012,
+      "fit_s": 36.7
+    },
+    {
+      "model": "Support vector regression",
+      "MAE": 0.5456,
+      "RMSE": 0.708,
+      "R2": 0.2987,
+      "fit_s": 2.0
+    },
+    {
+      "model": "Baseline: 30-day moving average",
+      "MAE": 0.5671,
+      "RMSE": 0.7044,
+      "R2": 0.3059,
+      "fit_s": NaN
+    },
+    {
+      "model": "Baseline: historical average",
+      "MAE": 0.6935,
+      "RMSE": 0.8693,
+      "R2": -0.0572,
+      "fit_s": NaN
+    },
+    {
+      "model": "Baseline: multiple linear regression",
+      "MAE": 6.6765,
+      "RMSE": 12.8746,
+      "R2": -230.8899,
+      "fit_s": NaN
+    }
+  ],
+  "test": {
+    "selected_model": "Weighted ensemble (Ridge regression 0.54, Random forest 0.36, Hist gradient boosting 0.10)",
+    "test_n": 191,
+    "model": {
+      "MAE": 0.3925,
+      "RMSE": 0.4892,
+      "R2": 0.7786
+    },
+    "baseline_historical_average": {
+      "MAE": 0.8634,
+      "RMSE": 1.0999,
+      "R2": -0.1189
+    },
+    "baseline_moving_average": {
+      "MAE": 0.6155,
+      "RMSE": 0.7599,
+      "R2": 0.4659
+    },
+    "baseline_linear_regression": {
+      "MAE": 0.4003,
+      "RMSE": 0.4958,
+      "R2": 0.7726
+    },
+    "model_incl_downgraded_batches": {
+      "MAE": 0.4562,
+      "RMSE": 1.0339,
+      "R2": 0.412
+    },
+    "interval90_coverage": 0.9109947643979057,
+    "yield_level_macro_f1": 0.7161781258974201,
+    "yield_level_accuracy": 0.7382198952879581
+  },
+  "top_inputs": {
+    "lab_kernel_fat_pct_wb": 0.32043,
+    "days_since_maintenance": 0.07574,
+    "lab_kernel_moisture_pct": 0.07249,
+    "immature_nut_pct": 0.06828,
+    "hist_yield_mean_90d_variant": 0.00806,
+    "crew_team": 0.00283,
+    "ambient_rh_pct": 0.00195,
+    "national_coconut_prod_mn_nuts_lag2m": 0.00171,
+    "kernel_to_dryer_delay_h": 0.0015,
+    "event_context": 0.00141,
+    "monsoon_season": 0.00115,
+    "germinated_nut_pct": 0.00098,
+    "power_cut_scheduled": 0.00037,
+    "day_of_week": 0.00035,
+    "nuts_received": 0.00019
+  }
+}

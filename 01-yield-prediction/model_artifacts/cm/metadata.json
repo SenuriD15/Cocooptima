@@ -1,0 +1,28 @@
+{
+  "component": "yield_prediction",
+  "model_group": "Coconut Milk",
+  "model_version": "c1-cm-v1.0",
+  "selected_model": "Weighted ensemble (Ridge regression 0.73, Hist gradient boosting 0.18, Support vector regression 0.09)",
+  "hyperparameters": {},
+  "target": "saleable_yield_pct",
+  "training_period": "2016-01-01..2024-12-31 (final refit)",
+  "selection_period": "2023-01-01..2024-12-31",
+  "test_period": "2025-01-01..2025-12-31",
+  "threshold_version": "yield-thresholds-v1",
+  "conformal_abs_residual": {
+    "q80": 3.909494567552457,
+    "q90": 5.118757586666391
+  },
+  "excluded_from_training": "QC status Rejected/Downgraded",
+  "created_at": "2026-10-13T08:01:16",
+  "library_versions": {
+    "python": "3.11.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": null,
+    "lightgbm": null,
+    "catboost": null
+  },
+  "fast_mode": false
+}

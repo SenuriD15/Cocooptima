@@ -1,0 +1,42 @@
+{
+  "version": "yield-thresholds-v1",
+  "method": "P25/P75 of non-downgraded training batches (2016-2022) per product variant",
+  "thresholds": {
+    "Coconut Milk | Coconut Cream 24%": {
+      "low_below": 95.55,
+      "high_at_or_above": 101.4
+    },
+    "Coconut Milk | Coconut Milk 17%": {
+      "low_below": 144.68,
+      "high_at_or_above": 152.95
+    },
+    "Coconut Milk | Coconut Milk 20%": {
+      "low_below": 120.35,
+      "high_at_or_above": 127.14
+    },
+    "Desiccated Coconut | Chips": {
+      "low_below": 47.19,
+      "high_at_or_above": 48.93
+    },
+    "Desiccated Coconut | Extra Fine": {
+      "low_below": 45.54,
+      "high_at_or_above": 47.16
+    },
+    "Desiccated Coconut | Fine": {
+      "low_below": 46.85,
+      "high_at_or_above": 48.56
+    },
+    "Desiccated Coconut | Medium": {
+      "low_below": 46.37,
+      "high_at_or_above": 48.03
+    },
+    "VCO - Cold Press | Virgin Coconut Oil": {
+      "low_below": 46.13,
+      "high_at_or_above": 48.55
+    },
+    "VCO - Wet Centrifuge | Virgin Coconut Oil": {
+      "low_below": 20.06,
+      "high_at_or_above": 21.01
+    }
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "component": "yield_prediction",
+  "model_group": "Coconut Milk",
+  "target": "saleable_yield_pct",
+  "prediction_point": "after preprocessing, before main processing",
+  "inputs": [
+    {
+      "name": "product_variant",
+      "required": true,
+      "unit": "-",
+      "description": "DC grade (Fine/Medium/Extra Fine/Chips); CM recipe (Milk 17%, Milk 20%, Cream 24%); VCO",
+      "type": "categorical",
+      "categories": [
+        "Coconut Cream 24%",
+        "Coconut Milk 17%",
+        "Coconut Milk 20%"
+      ],
+      "default": "Coconut Milk 17%"
+    },
+    {
+      "name": "line_id",
+      "required": false,
+      "unit": "-",
+      "description": "Production line",
+      "type": "categorical",
+      "categories": [
+        "CM-L1",
+        "CM-L2"
+      ],
+      "default": "CM-L1"
+    },
+    {
+      "name": "machine_id",
+      "required": true,
+      "unit": "-",
+      "description": "Dryer (DRY-A/B/C), press (PRS-1/2), expeller (EXP-1/2) or centrifuge (CFG-1); DRY-C retired 2019-06, DRY-B commissioned 2019-07",
+      "type": "categorical",
+      "categories": [
+        "PRS-1",
+        "PRS-2"
+      ],
+      "default": "PRS-1"
+    },
+    {
+      "name": "shift",
+      "required": true,
+      "unit": "-",
+      "description": "Day / Evening / Night",
+      "type": "categorical",
+      "categories": [
+        "Day",
+        "Evening"
+      ],
+      "default": "Day"
+    },
+    {
+      "name": "crew_team",
+      "required": false,
+      "unit": "-",
+      "description": "Rotating crew A/B/C",
+      "type": "categorical",
+      "categories": [
+        "A",
+        "B",
+        "C"
+      ],
+      "default": "C"
+    },
+    {
+      "name": "product_specific_feed_kg",
+      "required": true,
+      "unit": "kg",
+      "description": "Product-specific feed (SRS \u00a75.4 denominator): DC = pared white kernel; CM = separated white kernel; VCO cold press = dried kernel (DK); VCO wet = fresh white kernel",
+      "type": "numeric",
+      "default": 2021.7,
+      "min": 800.0,
+      "max": 3800.0,
+      "p01": 875.058,
+      "p99": 3349.758
+    },
+    {
+      "name": "source_region",
+      "required": false,
+      "unit": "-",
+      "description": "Coconut-triangle district the lot was bought from",
+      "type": "categorical",
+      "categories": [
+        "Gampaha",
+        "Kurunegala",
+        "Puttalam"
+      ],
+      "default": "Kurunegala"
+    },
+    {
+      "name": "nuts_received",
+      "required": false,
+      "unit": "nuts",
+      "description": "Nuts in the received lot",
+      "type": "numeric",
+      "default": 25228.0,
+      "min": 4000.0,
+      "max": 44303.0,
+      "p01": 11698.32,
+      "p99": 37637.67999999999
+    },
+    {
+      "name": "nut_storage_days",
+      "required": false,
+      "unit": "days",
+      "description": "Seasoning/storage days of nuts before processing",
+      "type": "numeric",
+      "default": 14.3,
+      "min": 2.0,
+      "max": 25.7,
+      "p01": 5.3,
+      "p99": 22.1
+    },
+    {
+      "name": "immature_nut_pct",
+      "required": false,
+      "unit": "% of nuts",
+      "description": "Immature nuts found in lot QC sample",
+      "type": "numeric",
+      "default": 4.24,
+      "min": 2.75,
+      "max": 14.49,
+      "p01": 2.96,
+      "p99": 12.32399999999996
+    },
+    {
+      "name": "germinated_nut_pct",
+      "required": false,
+      "unit": "% of nuts",
+      "description": "Germinated nuts found in lot QC sample",
+      "type": "numeric",
+      "default": 1.75,
+      "min": 0.0,
+      "max": 5.08,
+      "p01": 0.54,
+      "p99": 3.42
+    },
+    {
+      "name": "avg_dehusked_nut_weight_g",
+      "required": false,
+      "unit": "g",
+      "description": "Mean de-husked nut weight in lot sample (occasionally not recorded)",
+      "type": "numeric",
+      "default": 647.0,
+      "min": 417.0,
+      "max": 845.3,
+      "p01": 474.2,
+      "p99": 768.2699999999999
+    },
+    {
+      "name": "lab_kernel_moisture_pct",
+      "required": true,
+      "unit": "% w/w",
+      "description": "Kernel moisture, oven method, lot composite sample",
+      "type": "numeric",
+      "default": 48.57,
+      "min": 43.88,
+      "max": 52.29,
+      "p01": 45.42,
+      "p99": 50.84
+    },
+    {
+      "name": "lab_kernel_fat_pct_wb",
+      "required": false,
+      "unit": "% w/w wet basis",
+      "description": "Kernel fat, Soxhlet, lot composite sample (missing when lab backlog)",
+      "type": "numeric",
+      "default": 33.74,
+      "min": 30.2,
+      "max": 37.62,
+      "p01": 31.5707,
+      "p99": 36.21790000000001
+    },
+    {
+      "name": "paring_loss_pct",
+      "required": false,
+      "unit": "% of kernel",
+      "description": "Paring loss as % of whole kernel",
+      "type": "numeric",
+      "default": 13.39,
+      "min": 10.74,
+      "max": 16.04,
+      "p01": 11.7806,
+      "p99": 15.09
+    },
+    {
+      "name": "days_since_maintenance",
+      "required": false,
+      "unit": "days",
+      "description": "Days since last preventive maintenance of the machine",
+      "type": "numeric",
+      "default": 13.0,
+      "min": 0.0,
+      "max": 40.0,
+      "p01": 0.0,
+      "p99": 32.0
+    },
+    {
+      "name": "machine_age_years",
+      "required": false,
+      "unit": "years",
+      "description": "Years since machine commissioning",
+      "type": "numeric",
+      "default": 11.17,
+      "min": 0.0,
+      "max": 10.91,
+      "p01": 0.19,
+      "p99": 10.73
+    },
+    {
+      "name": "target_fat_pct",
+      "required": true,
+      "unit": "% fat",
+      "description": "Recipe target fat of the milk/cream",
+      "type": "numeric",
+      "default": 20.0,
+      "min": 17.0,
+      "max": 24.0,
+      "p01": 17.0,
+      "p99": 24.0
+    },
+    {
+      "name": "planned_water_kernel_ratio",
+      "required": true,
+      "unit": "kg/kg",
+      "description": "Extraction water added per kg kernel (2nd press)",
+      "type": "numeric",
+      "default": 0.52,
+      "min": 0.13,
+      "max": 0.87,
+      "p01": 0.2,
+      "p99": 0.74
+    },
+    {
+      "name": "extraction_water_temp_c",
+      "required": false,
+      "unit": "deg C",
+      "description": "Planned extraction water temperature",
+      "type": "numeric",
+      "default": 42.0,
+      "min": 30.0,
+      "max": 55.0,
+      "p01": 32.406,
+      "p99": 51.19399999999996
+    },
+    {
+      "name": "pack_format",
+      "required": false,
+      "unit": "-",
+      "description": "Packing format",
+      "type": "categorical",
+      "categories": [
+        "Bulk aseptic 20 L",
+        "Can 400 ml",
+        "UHT Tetra 1 L"
+      ],
+      "default": "Can 400 ml"
+    },
+    {
+      "name": "ambient_temp_c",
+      "required": false,
+      "unit": "deg C",
+      "description": "Daily mean air temperature at factory (Kurunegala)",
+      "type": "numeric",
+      "default": 25.9,
+      "min": 22.1,
+      "max": 30.4,
+      "p01": 23.4,
+      "p99": 29.6
+    },
+    {
+      "name": "ambient_rh_pct",
+      "required": false,
+      "unit": "%",
+      "description": "Daily mean relative humidity at factory",
+      "type": "numeric",
+      "default": 82.0,
+      "min": 43.0,
+      "max": 98.0,
+      "p01": 60.0,
+      "p99": 94.0
+    },
+    {
+      "name": "rain_today_mm",
+      "required": false,
+      "unit": "mm",
+      "description": "Daily rainfall at factory",
+      "type": "numeric",
+      "default": 2.7,
+      "min": 0.0,
+      "max": 227.5,
+      "p01": 0.0,
+      "p99": 45.38199999999988
+    },
+    {
+      "name": "rain_7d_mm",
+      "required": false,
+      "unit": "mm",
+      "description": "Rainfall of the previous 7 days at factory",
+      "type": "numeric",
+      "default": 27.7,
+      "min": 0.0,
+      "max": 625.4,
+      "p01": 0.0,
+      "p99": 198.98399999999657
+    },
+    {
+      "name": "scheduled_power_cut_h",
+      "required": false,
+      "unit": "h/day",
+      "description": "Published CEB/PUCSL load-shedding hours for the day",
+      "type": "numeric",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 11.0,
+      "p01": 0.0,
+      "p99": 7.5
+    },
+    {
+      "name": "power_cut_scheduled",
+      "required": false,
+      "unit": "0/1",
+      "description": "1 if any scheduled power cut",
+      "type": "numeric",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 1.0,
+      "p01": 0.0,
+      "p99": 1.0
+    },
+    {
+      "name": "national_coconut_prod_mn_nuts_lag2m",
+      "required": false,
+      "unit": "million nuts",
+      "description": "National coconut production two months earlier (latest published)",
+      "type": "numeric",
+      "default": 230.3,
+      "min": 170.7,
+      "max": 303.9,
+      "p01": 179.6,
+      "p99": 296.8
+    },
+    {
+      "name": "retail_nut_price_lkr_lag1m",
+      "required": false,
+      "unit": "LKR/nut",
+      "description": "Average retail coconut price previous month",
+      "type": "numeric",
+      "default": 157.0,
+      "min": 26.5,
+      "max": 128.75,
+      "p01": 26.5,
+      "p99": 118.95
+    },
+    {
+      "name": "event_context",
+      "required": false,
+      "unit": "-",
+      "description": "Operational event in force (curfew, COVID, power crisis, flood, cyclone)",
+      "type": "categorical",
+      "categories": [
+        "COVID-19 curfew - export industries operating on permits",
+        "COVID-19 phased reopening",
+        "COVID-19 quarantine curfew",
+        "COVID-19 second wave - Gampaha (Minuwangoda) cluster curfews",
+        "COVID-19 third wave - island-wide travel restrictions",
+        "Civil unrest - island-wide curfew",
+        "Cyclone Roanu floods (Western/North-Western provinces)",
+        "Easter Sunday attacks - island-wide curfew",
+        "Fuel issuance halted for non-essential services",
+        "Post-attack security restrictions",
+        "Power cuts 10-13 h/day (peak of crisis)",
+        "Power cuts ~1-2 h/day",
+        "Power cuts ~1-2.3 h/day",
+        "Power cuts ~2.5-3 h/day; QR fuel pass",
+        "Power cuts ~3 h/day; diesel shortage",
+        "Power cuts ~4-6 h/day",
+        "Power cuts ~7.5 h/day; fuel queues",
+        "Rolling power cuts begin (fuel shortage)",
+        "South-West monsoon floods",
+        "South-West monsoon floods and landslides"
+      ],
+      "default": "Cyclone Ditwah recovery"
+    },
+    {
+      "name": "is_poya_day",
+      "required": false,
+      "unit": "0/1",
+      "description": "Full-moon Poya day",
+      "type": "numeric",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 1.0,
+      "p01": 0.0,
+      "p99": 1.0
+    },
+    {
+      "name": "month",
+      "required": false,
+      "unit": "-",
+      "description": "Calendar month",
+      "type": "numeric",
+      "default": 7.0,
+      "min": 1.0,
+      "max": 12.0,
+      "p01": 1.0,
+      "p99": 12.0
+    },
+    {
+      "name": "day_of_week",
+      "required": false,
+      "unit": "0=Mon",
+      "description": "Day of week",
+      "type": "numeric",
+      "default": 2.0,
+      "min": 0.0,
+      "max": 5.0,
+      "p01": 0.0,
+      "p99": 5.0
+    },
+    {
+      "name": "monsoon_season",
+      "required": false,
+      "unit": "-",
+      "description": "SW monsoon (May-Sep), NE monsoon (Dec-Feb), inter-monsoon",
+      "type": "categorical",
+      "categories": [
+        "Inter-monsoon",
+        "NE monsoon",
+        "SW monsoon"
+      ],
+      "default": "SW monsoon"
+    },
+    {
+      "name": "hist_yield_mean_30d_variant",
+      "required": false,
+      "unit": "%",
+      "description": "Mean saleable yield of same model group+variant over the previous 30 days (strictly earlier dates)",
+      "type": "numeric",
+      "default": 128.504,
+      "min": 71.949,
+      "max": 155.427,
+      "p01": 91.47328,
+      "p99": 153.42121999999998
+    },
+    {
+      "name": "hist_yield_mean_90d_variant",
+      "required": false,
+      "unit": "%",
+      "description": "As above, previous 90 days",
+      "type": "numeric",
+      "default": 126.489,
+      "min": 88.591,
+      "max": 153.786,
+      "p01": 92.88194,
+      "p99": 152.14398
+    },
+    {
+      "name": "hist_yield_mean_30d_machine",
+      "required": false,
+      "unit": "%",
+      "description": "Mean saleable yield of the same machine over previous 30 days",
+      "type": "numeric",
+      "default": 127.818,
+      "min": 94.194,
+      "max": 146.54,
+      "p01": 113.08496000000001,
+      "p99": 140.808
+    }
+  ],
+  "engineered_features": [
+    "lab_kernel_fat_pct_db",
+    "feed_fat_pct_est",
+    "fat_input_kg",
+    "wear_ratio_sq",
+    "fat_to_target_ratio",
+    "night_or_evening_shift",
+    "heavy_rain_week",
+    "nut_price_per_mn_nuts",
+    "lab_moisture_x_immature"
+  ],
+  "feature_module": "c1_features.py"
+}
